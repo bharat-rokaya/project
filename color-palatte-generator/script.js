@@ -11,7 +11,7 @@ paletteContainer.addEventListener("click", function(e) {
             .then(() => showCopySuccess(e.target))
             .catch((err) => console.log(err));
     } else if(e.target.classList.contains("color")) {
-        const hexValue = e.target.nextElementSibling.querrySelector(".hex-value").textContent;
+        const hexValue = e.target.nextElementSibling.querySelector(".hex-btn").textContent;
 
         navigator.clipboard.writeText(hexValue)
             .then(() => showCopySuccess(e.target.nextElementSibling.querrySelector(".copy-btn")))
@@ -21,7 +21,7 @@ paletteContainer.addEventListener("click", function(e) {
 
 function showCopySuccess(element) {
     element.classList.remove("far", "fa-copy");
-    element.classsList.add("fas", "fa-check");
+    element.classList.add("fas", "fa-check");
 
     element.style.color = "#48bb78";
 
@@ -58,7 +58,7 @@ function updatePaletteDisplay(colors) {
     colorBoxes.forEach((box, index) => {
         const color = colors[index];
         const colorDiv = box.querySelector(".color");
-        const hexValue = box.querySelector(".hex-value");
+        const hexValue = box.querySelector(".hex-btn");
 
         colorDiv.style.backgroundColor = color;
         hexValue.textContent = color;

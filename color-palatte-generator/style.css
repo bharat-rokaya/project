@@ -62,7 +62,7 @@ h1:after {
     box-shadow: 0 6px 10px rgba(102, 126, 234, 0.3);
 }
 
-#generate:active {
+#generate-btn:active {
     transform: translateY(0);
 }
 
@@ -113,7 +113,7 @@ h1:after {
 }
 
 @media(max-width:768px) {
-    .palatte-container {
+    .palette-container {
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     }
 }
