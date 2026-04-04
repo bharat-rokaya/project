@@ -13,17 +13,17 @@ transactionFormEl.addEventListener("submit", addTransaction);
 function addTransaction(e) {
     e.preventDefault();
 
-    //get form values 
+    // get form values
     const description = descriptionEl.value.trim();
     const amount = parseFloat(amountEl.value);
 
     transactions.push({
         id: Date.now(),
         description,
-        amount
-    })
+        amount,
+    });
 
-    localStorage.setItem("transactions", JSON.stringify(transactions))
+    localStorage.setItem("transactions", JSON.stringify(transactions));
 
     updateTransactionList();
     updateSummary();
@@ -39,7 +39,7 @@ function updateTransactionList() {
     sortedTransactions.forEach((transaction) => {
         const transactionEl = createTransactionElement(transaction);
         transactionListEl.appendChild(transactionEl);
-    })
+    });
 }
 
 function createTransactionElement(transaction) {
@@ -48,23 +48,27 @@ function createTransactionElement(transaction) {
     li.classList.add(transaction.amount > 0 ? "income" : "expense");
 
     li.innerHTML = `
-        <span>${transaction.description}</span>
-        <span>
-            ${formatCurrency(transaction.amount)}
-            <button class="delete-btn" onclick="removeTransaction(${transaction.id})">x</button>
-        </span>
-    `;
+    <span>${transaction.description}</span>
+    <span>
+  
+    ${formatCurrency(transaction.amount)}
+      <button class="delete-btn" onclick="removeTransaction(${transaction.id})">x</button>
+    </span>
+  `;
 
     return li;
 }
 
 function updateSummary() {
+    // 100, -50, 200, -200 => 50
     const balance = transactions.reduce((acc, transaction) => acc + transaction.amount, 0);
 
-    const income = transactions.filter(transaction => transaction.amount > 0)
+    const income = transactions
+        .filter((transaction) => transaction.amount > 0)
         .reduce((acc, transaction) => acc + transaction.amount, 0);
 
-    const expenses = transactions.filter(transaction => transaction.amount < 0)
+    const expenses = transactions
+        .filter((transaction) => transaction.amount < 0)
         .reduce((acc, transaction) => acc + transaction.amount, 0);
 
     // update ui => todo: fix the formatting
@@ -82,14 +86,14 @@ function formatCurrency(number) {
 
 function removeTransaction(id) {
     // filter out the one we wanted to delete
-    transactions = transactions.filter(transaction => transaction.id !== id);
+    transactions = transactions.filter((transaction) => transaction.id !== id);
 
-    localStorage.setItem("transactions", JSON.stringify(transactions));
+    localStorage.setItem("transcations", JSON.stringify(transactions));
 
     updateTransactionList();
     updateSummary();
 }
 
-// initial sender
+// initial render
 updateTransactionList();
-updateSummary();;
+updateSummary();
